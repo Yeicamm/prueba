@@ -1,10 +1,13 @@
 package com.prueba.estudiante.prueba.dto;
 
+import com.prueba.estudiante.prueba.entity.Asignatura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +24,6 @@ public class DocenteDTO {
     private String apellidos;
     @Column (name = "DOCENTE_ASIGNATURADICTADA")
     private Long asignaturaDicatada;
+
+    private List<Asignatura> asignaturas;
 }

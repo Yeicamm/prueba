@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,4 +43,7 @@ public class Docente {
     private Long telefonoFijo;
     @Column (name = "DOCENTE_CELULAR")
     private Long celular;
+
+    @OneToMany(mappedBy = "docente")
+    private List<Asignatura> asignaturas;
 }
