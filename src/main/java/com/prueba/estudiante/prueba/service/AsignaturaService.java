@@ -13,4 +13,5 @@ public interface AsignaturaService {
     AsignaturaDTO createAsignatura(AsignaturaDTO asignaturaDTO);
     AsignaturaDTO updateAsignatura(Long id, AsignaturaDTO asignaturaDTO) throws ResourceNotFoundException;
     void deleteAsignatura(Long id) throws ResourceNotFoundException;
+
 }
