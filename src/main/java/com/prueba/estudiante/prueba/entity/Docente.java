@@ -30,7 +30,7 @@ public class Docente {
     @Column (name = "DOCENTE_FECHANACIMIENTO")
     private LocalDate fechaNacimiento;
     @Column (name = "DOCENTE_ASIGNATURADICTADA")
-    private Long asignaturaDicatada;
+    private Long asignaturaDictada;
     @Column (name = "DOCENTE_CIUDADRESIDENCIA")
     private String ciudadResidencia;
     @Column (name = "DOCENTE_ULTIMOGRADOESCOLARIDAD")
