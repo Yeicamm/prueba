@@ -61,7 +61,7 @@ public class Estudiante {
     @Setter
     @ManyToMany(mappedBy = "estudiantes")
     private Set<Asignatura> asignaturas = new HashSet<>();
-    public void setNombreCompleto() {
+    public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = this.nombres + " " + this.apellidos;
     }
 }

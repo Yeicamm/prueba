@@ -1,7 +1,6 @@
 package com.prueba.estudiante.prueba.service.impl;
 
 import com.prueba.estudiante.prueba.config.ResourceNotFoundException;
-import com.prueba.estudiante.prueba.dto.DocenteDTO;
 import com.prueba.estudiante.prueba.entity.Docente;
 import com.prueba.estudiante.prueba.repository.DocenteRepository;
 import com.prueba.estudiante.prueba.service.DocenteService;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class DocenteServiceImpl implements DocenteService {
-
+/*
     private DocenteRepository docenteRepository;
 
     private ModelMapper modelMapper;
@@ -57,4 +56,6 @@ public class DocenteServiceImpl implements DocenteService {
 
         return modelMapper.map(docente, DocenteDTO.class);
     }
+
+ */
 }

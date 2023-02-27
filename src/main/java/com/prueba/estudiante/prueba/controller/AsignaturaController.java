@@ -1,6 +1,5 @@
 package com.prueba.estudiante.prueba.controller;
 
-import com.prueba.estudiante.prueba.dto.AsignaturaDTO;
 import com.prueba.estudiante.prueba.service.AsignaturaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/asignaturas")
 @RequiredArgsConstructor
 public class AsignaturaController {
-
+/*
     private AsignaturaService asignaturaService;
     private ModelMapper modelMapper;
 
@@ -55,4 +54,6 @@ public class AsignaturaController {
         asignaturaService.deleteAsignatura(id);
         return ResponseEntity.noContent().build();
     }
+
+ */
 }

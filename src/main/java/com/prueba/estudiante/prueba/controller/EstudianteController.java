@@ -1,15 +1,19 @@
 package com.prueba.estudiante.prueba.controller;
 
 
-import com.prueba.estudiante.prueba.dto.EstudianteDTO;
+
+import com.prueba.estudiante.prueba.entity.Estudiante;
 import com.prueba.estudiante.prueba.service.EstudianteService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/estudiante")
@@ -17,43 +21,40 @@ import java.util.stream.Collectors;
 public class EstudianteController {
 
     private EstudianteService estudianteService;
-    private ModelMapper modelMapper;
 
-    public EstudianteDTO convertToDto(Object estudiante) {
-        EstudianteDTO estudianteDTO = modelMapper.map(estudiante, EstudianteDTO.class);
-        // lógica para asignar valores adicionales a docenteDTO
-        return estudianteDTO;
+    public EstudianteController(EstudianteService estudianteService) {
+        this.estudianteService = estudianteService;
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<EstudianteDTO> findEstudianteById(@PathVariable Long id) {
-        EstudianteDTO estudianteDTO = estudianteService.findEstudianteById(id);
-        return ResponseEntity.ok(estudianteDTO);
+    public ResponseEntity<Estudiante> findEstudianteById(@PathVariable Long id) {
+        Estudiante estudiante = estudianteService.findEstudianteById(id);
+        return ResponseEntity.ok(estudiante);
     }
 
-    @GetMapping("/estudiante")
-    public ResponseEntity<List<EstudianteDTO>> findAllEstudiante() {
-        List<EstudianteDTO> estudianteDTO = estudianteService.findAllEstudiante()
-                .stream()
-                .map(estudiante -> convertToDto(estudiante))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(estudianteDTO);
+    @GetMapping
+    public ResponseEntity<List<Estudiante>> findAllEstudiante() {
+        List<Estudiante> estudiantes = estudianteService.findAllEstudiante();
+        return new ResponseEntity<>(estudiantes, HttpStatus.OK);
     }
 
-    @PostMapping("/agregar")
-    public ResponseEntity<EstudianteDTO> createEstudiante(@RequestBody EstudianteDTO estudianteDTO) {
-        EstudianteDTO createdEstudianteDTO = estudianteService.createEstudiante(estudianteDTO);
-        return ResponseEntity.ok(createdEstudianteDTO);
+    @PostMapping
+    public ResponseEntity<Estudiante> createEstudiante(@RequestBody Estudiante estudiante) {
+        Estudiante estudiante1 = estudianteService.createEstudiante(estudiante);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("estudiante", "/api/estudiante" + estudiante1.getId().toString());
+        return new ResponseEntity<>(estudiante1, httpHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EstudianteDTO> updateEstudiante(@PathVariable Long id, @RequestBody EstudianteDTO estudianteDTO) {
-        EstudianteDTO updatedEstudianteDTO = estudianteService.updateEstudiante(id, estudianteDTO);
-        return ResponseEntity.ok(updatedEstudianteDTO);
+    public ResponseEntity<Estudiante> updateEstudiante(@PathVariable Long id, @RequestBody Estudiante estudiante) {
+        estudianteService.updateEstudiante(id, estudiante);
+        return new ResponseEntity<>(estudianteService.findEstudianteById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEstudiante(@PathVariable Long id) {
         estudianteService.deleteEstudiante(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

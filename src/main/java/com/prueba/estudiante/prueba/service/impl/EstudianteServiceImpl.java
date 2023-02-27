@@ -1,43 +1,43 @@
 package com.prueba.estudiante.prueba.service.impl;
 
 import com.prueba.estudiante.prueba.config.ResourceNotFoundException;
-import com.prueba.estudiante.prueba.dto.EstudianteDTO;
+
 import com.prueba.estudiante.prueba.entity.Estudiante;
 import com.prueba.estudiante.prueba.repository.EstudianteRepository;
 import com.prueba.estudiante.prueba.service.EstudianteService;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
-@RequiredArgsConstructor
+
 public class EstudianteServiceImpl implements EstudianteService {
 
+    @Autowired
     private EstudianteRepository estudianteRepository;
 
-    private ModelMapper modelMapper;
-
     @Override
-    public EstudianteDTO createEstudiante(EstudianteDTO estudianteDTO) {
-        Estudiante estudiante = modelMapper.map(estudianteDTO, Estudiante.class);
-        estudiante = estudianteRepository.save(estudiante);
-        return modelMapper.map(estudiante, EstudianteDTO.class);
+    public Estudiante createEstudiante(Estudiante estudiante) {
+        Estudiante estudiantenew = estudianteRepository.save(estudiante);
+        return estudiantenew;
     }
 
     @Override
-    public List<EstudianteDTO> findAllEstudiante() {
-        List<Estudiante> estudiantes = estudianteRepository.findAll();
-        return estudiantes.stream().map(estudiante -> modelMapper.map(estudiante, EstudianteDTO.class)).collect(Collectors.toList());
+    public List<Estudiante> findAllEstudiante() {
+        List<Estudiante> estudiantes = new ArrayList<>();
+        estudianteRepository.findAll().forEach(estudiantes::add);
+        return estudiantes;
     }
 
     @Override
-    public EstudianteDTO findEstudianteById(Long id) {
+    public Estudiante findEstudianteById(Long id) {
         Optional<Estudiante> estudiante = estudianteRepository.findById(id);
-        return estudiante.map(value -> modelMapper.map(value, EstudianteDTO.class)).orElse(null);
+        return estudianteRepository.findById(id).get();
     }
 
     @Override
@@ -46,14 +46,22 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public EstudianteDTO updateEstudiante(Long id, EstudianteDTO estudianteDTO) {
+    public Estudiante updateEstudiante(Long id, Estudiante estudianteNew) {
         Estudiante estudiante = estudianteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Estudiante no encontrada con id " + id));
-        estudiante.setTipoDocumento(estudianteDTO.getTipoDocumento());
-        estudiante.setNumeroIdentidad(estudianteDTO.getNumeroIdentidad());
-        estudiante.setNombres(estudianteDTO.getNombres());
-        estudiante.setApellidos(estudianteDTO.getApellidos());
-        estudiante.setGradoMatriculado(estudianteDTO.getGradoMatriculado());
-        return modelMapper.map(estudiante, EstudianteDTO.class);
+        estudiante.setTipoDocumento(estudiante.getTipoDocumento());
+        estudiante.setNumeroIdentidad(estudiante.getNumeroIdentidad());
+        estudiante.setNombres(estudiante.getNombres());
+        estudiante.setApellidos(estudiante.getApellidos());
+        estudiante.setFechaNacimiento(estudiante.getFechaNacimiento());
+        estudiante.setGradoMatriculado(estudiante.getGradoMatriculado());
+        estudiante.setCiudadResidencia(estudiante.getCiudadResidencia());
+        estudiante.setDireccionResidencia(estudiante.getDireccionResidencia());
+        estudiante.setEmail(estudiante.getEmail());
+        estudiante.setTelefonoFijo(estudiante.getTelefonoFijo());
+        estudiante.setCelular(estudiante.getCelular());
+        estudiante.setNombreCompleto(estudiante.getNombreCompleto());
+        estudiante.setNombreCompletoAcudiente(estudiante.getNombreCompletoAcudiente());
+        return estudianteRepository.save(estudiante);
     }
 
 }

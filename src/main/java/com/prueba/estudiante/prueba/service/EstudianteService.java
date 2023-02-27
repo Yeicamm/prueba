@@ -1,16 +1,16 @@
 package com.prueba.estudiante.prueba.service;
 
 import com.prueba.estudiante.prueba.config.ResourceNotFoundException;
-import com.prueba.estudiante.prueba.dto.DocenteDTO;
-import com.prueba.estudiante.prueba.dto.EstudianteDTO;
+import com.prueba.estudiante.prueba.entity.Docente;
+import com.prueba.estudiante.prueba.entity.Estudiante;
 
 import java.util.List;
 
 public interface EstudianteService {
 
-    List<EstudianteDTO> findAllEstudiante();
-    EstudianteDTO findEstudianteById(Long id) throws ResourceNotFoundException;
-    EstudianteDTO createEstudiante(EstudianteDTO estudianteDTO);
-    EstudianteDTO updateEstudiante(Long id, EstudianteDTO estudianteDTO) throws ResourceNotFoundException;
+    List<Estudiante> findAllEstudiante();
+    Estudiante findEstudianteById(Long id) throws ResourceNotFoundException;
+    Estudiante createEstudiante(Estudiante estudiante);
+    Estudiante updateEstudiante(Long id, Estudiante estudianteNew) throws ResourceNotFoundException;
     void deleteEstudiante(Long id) throws ResourceNotFoundException;
 }
